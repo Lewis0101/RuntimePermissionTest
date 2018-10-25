@@ -8,6 +8,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -23,9 +24,11 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.CALL_PHONE)
+                if (ContextCompat.checkSelfPermission(MainActivity.this
+                        ,Manifest.permission.CALL_PHONE)
                         != PackageManager.PERMISSION_GRANTED){
-                    ActivityCompat.requestPermissions(MainActivity.this,new String[]{ Manifest.permission.CALL_PHONE},1);
+                    ActivityCompat.requestPermissions(MainActivity.this
+                            ,new String[]{ Manifest.permission.CALL_PHONE},1);
                 }else {
                     call();
                 }
@@ -46,16 +49,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,String[] Permission,int[] grantResults){
+    public void onRequestPermissionsResult(int requestCode,String[] Permission
+            ,int[] grantResults){
+        Log.d("MainActivity", "onRequestPermissionsResult: requestCode "+requestCode+";grantResults "+grantResults);
         switch (requestCode){
             case 1:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                if (grantResults.length > 0 && grantResults[0]
+                        == PackageManager.PERMISSION_GRANTED)
+                {
                     call();
                 }else {
-                    Toast.makeText(this,"you denied the permission",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,"you denied the permission",
+                            Toast.LENGTH_SHORT).show();
                 }
                 break;
             default:
         }
     }
 }
+
